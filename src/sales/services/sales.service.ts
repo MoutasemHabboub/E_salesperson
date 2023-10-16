@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/database';
+import { PrismaService } from '../../database';
 import { CreateSalesDto } from '../dto/createSale.dto';
 import { GetCommissionDto } from '../dto/getCommission.dto';
 

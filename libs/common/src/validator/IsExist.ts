@@ -10,7 +10,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/database';
+import { PrismaService } from '../../../../src/database';
 import { Prisma } from '@prisma/client';
 const models = Prisma.dmmf.datamodel.models.map((m) => m.name);
 type ModelsType = (typeof models)[number];

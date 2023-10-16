@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './interfaces/token-payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from './users/users.service';
-import { PrismaService } from 'src/database';
+import { PrismaService } from '../database';
 
 @Injectable()
 export class AuthService {
