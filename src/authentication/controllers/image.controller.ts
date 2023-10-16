@@ -79,7 +79,7 @@ export class ImageController {
   @Get(':id')
   async getDatabaseFileById(
     @Param('id') id: string,
-    @Res({ passthrough: true }) response: Response,
+    @Res({ passthrough: true }) response,
   ) {
     const file = await this.imageUploadService.getFileByUid(Number(id));
     response.set({
