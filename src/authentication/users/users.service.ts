@@ -6,6 +6,7 @@ import {
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from '../../database';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -49,10 +50,15 @@ export class UsersService {
     return user;
   }
 
-  async getUser(userId) {
-    return this.prisma.user.findUnique({ where: { id: userId } });
+  async getUser(id) {
+    return this.prisma.user.findUnique({ where: { id } });
+  }
+
+  async deleteUser(id) {
+    return this.prisma.user.delete({ where: { id } });
   }
   // delete user
-  // update user by id
-  // update user
+  async updateUser(data: UpdateUserDto) {
+    return this.prisma.user.update({ where: { id: data.id }, data });
+  }
 }

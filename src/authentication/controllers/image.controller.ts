@@ -25,7 +25,6 @@ import {
 } from '@nestjs/swagger';
 
 import { Express } from 'express';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { RoleGuard } from '../guards/role.guard';
 import { CurrentUser } from '@app/common';
 import { ImageService } from '../services/image.service';

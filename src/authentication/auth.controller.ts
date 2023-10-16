@@ -4,11 +4,9 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Res,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -41,8 +39,10 @@ export class AuthController {
     status: HttpStatus.UNAUTHORIZED,
   })
   async login(@CurrentUser() user, @Body() data: LoginUserDto) {
+    console.log(data);
     return await this.authService.login(user);
   }
+
   @Post('signup')
   async signUp(@Body() signupUserDto: SignupUserDto) {
     return this.authService.signUp(signupUserDto);

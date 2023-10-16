@@ -20,7 +20,7 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   role      ROLE      @default(SELLER)
-  region    Region    @relation(fields: [regionId], references: [id])
+  region    Region    @relation(fields: [regionId], references: [id], onDelete: Cascade)
   sales     Sales[]
   Image     Image[]
 }
@@ -43,8 +43,8 @@ model Sales {
   regionId      Int
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
-  salesperson   User      @relation(fields: [salespersonId], references: [id])
-  region        Region    @relation(fields: [regionId], references: [id])
+  salesperson   User      @relation(fields: [salespersonId], references: [id], onDelete: Cascade)
+  region        Region    @relation(fields: [regionId], references: [id], onDelete: Cascade)
 }
 
 enum ROLE {
@@ -58,7 +58,7 @@ model Image {
   mimieType  String
   name       String
   uploaderId Int
-  Uploader   User     @relation(fields: [uploaderId], references: [id])
+  Uploader   User     @relation(fields: [uploaderId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
