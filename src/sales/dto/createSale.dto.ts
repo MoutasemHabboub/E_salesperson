@@ -23,5 +23,4 @@ export class CreateSalesDto {
   @IsNumber()
   @IsExist('Region', 'id')
   regionId: number;
-  
 }
