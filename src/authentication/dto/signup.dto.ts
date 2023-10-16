@@ -1,4 +1,4 @@
-import { IsExist, Unique } from '../../../libs/common/src';
+import { Unique } from '@app/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsInt,

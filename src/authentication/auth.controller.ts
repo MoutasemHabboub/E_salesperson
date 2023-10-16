@@ -18,8 +18,8 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login.dto';
-import { CurrentUser } from '../../libs/common/src';
 import { SignupUserDto } from './dto/signup.dto';
+import { CurrentUser } from '@app/common';
 
 @Controller('auth')
 export class AuthController {
