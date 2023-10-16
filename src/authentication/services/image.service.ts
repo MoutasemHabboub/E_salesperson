@@ -70,7 +70,7 @@ export class ImageService {
       },
     });
 
-    return image;
+    return { url: `http://161.97.168.0:3533/sales/v1/images/${image.id}` };
   }
   async getFileByUid(id: number) {
     const file = await this.prisma.image.findUnique({ where: { id } });

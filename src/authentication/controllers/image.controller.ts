@@ -35,7 +35,6 @@ import { ROLE } from '../enum/role.enum';
   path: 'images',
 })
 @ApiTags('Image')
-@UseGuards(AuthGuard(['jwt']))
 @ApiBearerAuth()
 export class ImageController {
   private logger: Logger = new Logger('ImageController');
