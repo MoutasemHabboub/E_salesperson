@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PrismaService } from 'src/database';
+import { PrismaService } from '../../database';
 
 @Injectable()
 export class UsersService {
