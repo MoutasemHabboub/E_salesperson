@@ -7,6 +7,10 @@ import {
   Logger,
   UploadedFile,
   UseInterceptors,
+  Get,
+  Param,
+  Res,
+  StreamableFile,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -71,6 +75,18 @@ export class ImageController {
       user.id,
       file.mimetype,
     );
+  }
+  @Get(':id')
+  async getDatabaseFileById(
+    @Param('id') id: string,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const file = await this.imageUploadService.getFileByUid(Number(id));
+    response.set({
+      'Content-Disposition': `inline; filename="${file.name}"`,
+      'Content-Type': file.mimieType,
+    });
+    return new StreamableFile(file.stream);
   }
 
   @Delete()

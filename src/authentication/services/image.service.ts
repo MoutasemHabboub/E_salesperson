@@ -29,7 +29,7 @@ export class ImageService {
     contents: Buffer | string,
     uploaderId: number,
     mimieType: string,
-  ): Promise<string> {
+  ): Promise<any> {
     const hashids = new Hashids(
       name.split('.')[0],
       5,
@@ -57,12 +57,11 @@ export class ImageService {
     //give the uploaded file permission code of 400
     await this.adapter.chmod(this.prefix + '/' + date + '/' + urlSafeName, 400);
 
-    const url = this.baseUrl + '/' + date + '/' + urlSafeName;
-
-    await this.prisma.image.create({
+    const image = await this.prisma.image.create({
       data: {
-        url: url,
+        url: this.prefix + '/' + date + '/' + urlSafeName,
         mimieType,
+        name,
         Uploader: {
           connect: {
             id: uploaderId,
@@ -71,9 +70,13 @@ export class ImageService {
       },
     });
 
-    return url;
+    return image;
   }
-
+  async getFileByUid(id: number) {
+    const file = await this.prisma.image.findUnique({ where: { id } });
+    const stream = await this.adapter.createReadStream(file.url);
+    return { ...file, stream };
+  }
   // delete image
 
   public async deleteImage(url: string): Promise<any> {
