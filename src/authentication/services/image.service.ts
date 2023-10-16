@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as Hashids from 'hashids';
+import Hashids from 'hashids';
 import { PrismaService } from '../../database';
 
 @Injectable()
