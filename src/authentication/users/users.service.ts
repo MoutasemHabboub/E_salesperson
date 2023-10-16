@@ -52,4 +52,7 @@ export class UsersService {
   async getUser(userId) {
     return this.prisma.user.findUnique({ where: { id: userId } });
   }
+  // delete user
+  // update user by id
+  // update user
 }
