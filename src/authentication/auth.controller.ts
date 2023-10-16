@@ -42,7 +42,6 @@ export class AuthController {
   })
   async login(@CurrentUser() user, @Body() data: LoginUserDto) {
     return await this.authService.login(user);
-  
   }
   @Post('signup')
   async signUp(@Body() signupUserDto: SignupUserDto) {

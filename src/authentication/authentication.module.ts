@@ -9,6 +9,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { DatabaseModule } from '../database/database.module';
 import { CommonModule } from '@app/common';
+import { ImageController } from './controllers/image.controller';
+import { ImageService } from './services/image.service';
 @Module({
   imports: [
     UsersModule,
@@ -42,7 +44,13 @@ import { CommonModule } from '@app/common';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  controllers: [AuthController, ImageController],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    ImageService,
+    ImageService,
+  ],
 })
 export class AuthenticationModule {}

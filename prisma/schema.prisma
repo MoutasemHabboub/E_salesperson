@@ -11,42 +11,53 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  password  String   @db.Text
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  password  String    @db.Text
   number    Int
   photo     String?
   regionId  Int
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  role      ROLE     @default(SELLER)
-  region    Region   @relation(fields: [regionId], references: [id])
+  role      ROLE      @default(SELLER)
+  region    Region    @relation(fields: [regionId], references: [id])
   sales     Sales[]
+  Image     Image[]
 }
 
 model Region {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   name         String
-  createdAt    DateTime @default(now())
+  createdAt    DateTime  @default(now())
   updatedAt    DateTime? @updatedAt
   salespersons User[]
   sales        Sales[]
 }
 
 model Sales {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   amount        Float
   month         Int
   year          Int
   salespersonId Int
   regionId      Int
-  createdAt     DateTime @default(now())
+  createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
-  salesperson   User     @relation(fields: [salespersonId], references: [id])
-  region        Region   @relation(fields: [regionId], references: [id])
+  salesperson   User      @relation(fields: [salespersonId], references: [id])
+  region        Region    @relation(fields: [regionId], references: [id])
 }
 
 enum ROLE {
   SELLER
   ADMIN
+}
+
+model Image {
+  id         Int      @id @default(autoincrement())
+  url        String   @unique
+  mimieType  String
+  uploaderId Int
+  Uploader   User     @relation(fields: [uploaderId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
