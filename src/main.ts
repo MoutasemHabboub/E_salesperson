@@ -36,8 +36,8 @@ async function bootstrap() {
     SwaggerModule.setup(docsPath, app, document);
     Logger.log('Swagger Enabled', 'NestApplication');
   }
-  const port = process.env.AUTH_PORT || 3531;
-  const host = process.env.AUTH_HOST || 'localhost';
+  const port = process.env.HTTP_PORT || 3531;
+  const host = process.env.HTTP_HOST || 'localhost';
   await app.listen(port);
   // server.setTimeout(parseInt(process.env.APP_TIMEOUT) || 1000);
   Logger.log(
