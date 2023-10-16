@@ -1,6 +1,6 @@
 import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsExist } from '@app/common';
+import { IsExist } from '../../../libs/common/src';
 
 export class CreateSalesDto {
   @ApiProperty()

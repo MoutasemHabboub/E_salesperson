@@ -8,7 +8,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { DatabaseModule } from '../database/database.module';
-import { CommonModule } from '@app/common';
+import { CommonModule } from '../../libs/common/src/common.module';
 @Module({
   imports: [
     UsersModule,

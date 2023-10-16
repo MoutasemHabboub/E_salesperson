@@ -1,6 +1,6 @@
 import { IsInt, IsNumber, IsOptional } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsExist } from '@app/common';
+import { IsExist } from '../../../libs/common/src';
 
 export class GetCommissionDto {
   @ApiPropertyOptional()

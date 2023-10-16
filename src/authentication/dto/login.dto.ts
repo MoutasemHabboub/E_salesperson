@@ -1,4 +1,4 @@
-import { IsExist } from '@app/common';
+import { IsExist } from '../../../libs/common/src';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 

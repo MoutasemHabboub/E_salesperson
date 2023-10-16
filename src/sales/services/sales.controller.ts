@@ -11,7 +11,7 @@ import { SalesService } from './sales.service';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { CreateSalesDto } from '../dto/createSale.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { CurrentUser } from '@app/common';
+import { CurrentUser } from '../../../libs/common/src';
 import { RoleGuard } from 'src/authentication/guards/role.guard';
 import { ROLE } from 'src/authentication/enum/role.enum';
 import { GetCommissionDto } from '../dto/getCommission.dto';
