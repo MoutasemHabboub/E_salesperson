@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from '../../database';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { OptionsDto } from './dto/OptionsDto';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -51,7 +52,7 @@ export class UsersService {
     if (!passwordIsValid) {
       throw new UnauthorizedException('Credentials are not valid.');
     }
-    return user;
+    return new UserDto(user);
   }
 
   async getUser(id) {
@@ -79,10 +80,11 @@ export class UsersService {
       },
     };
     const result = await this.prisma.user.findMany(findArgs);
+    const users = result.map((user) => new UserDto(user));
 
     const count = await this.prisma.user.aggregate({
       _count: true,
     });
-    return { users: result, count: count._count };
+    return { users, count: count._count };
   }
 }

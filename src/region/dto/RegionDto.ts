@@ -14,20 +14,20 @@ export class RegionDto {
 
   @ApiProperty()
   @IsDateString()
-  created_at: Date;
+  createdAt: Date;
 
   @ApiProperty()
   @IsDateString()
-  updated_at?: Date;
+  updatedAt?: Date;
 
   count?: number;
   constructor(row: any) {
     this.id = row.id;
     this.name = row.name;
 
-    this.created_at = new Date(row.created_at);
+    this.createdAt = new Date(row.createdAt);
     if (row.updated_at) {
-      this.updated_at = new Date(row.updated_at);
+      this.updatedAt = new Date(row.updatedAt);
     }
     this.count = row._count;
   }
