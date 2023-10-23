@@ -40,7 +40,10 @@ export class UsersService {
   }
 
   async verifyUser(name: string, password: string) {
-    const user = await this.prisma.user.findUnique({ where: { name } });
+    const user = await this.prisma.user.findUnique({
+      where: { name },
+      include: { region: true },
+    });
     if (!user) {
       throw new UnauthorizedException('name or password not valid');
     }
@@ -72,6 +75,7 @@ export class UsersService {
       take: options.take ?? 10,
       include: {
         _count: true,
+        region: true,
       },
     };
     const result = await this.prisma.user.findMany(findArgs);
