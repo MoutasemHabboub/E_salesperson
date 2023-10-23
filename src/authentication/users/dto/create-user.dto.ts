@@ -10,6 +10,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsExist, Unique } from '@app/common';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -17,6 +18,7 @@ export class CreateUserDto {
   @MaxLength(255)
   @MinLength(1)
   @ApiProperty()
+  @Unique('User', 'name')
   name: string;
 
   @IsNotEmpty()
@@ -39,7 +41,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @Min(1)
   @ApiProperty()
-  //  @IsExist('category', 'id')
+  @IsExist('Region', 'id')
   regionId: number;
 
   @IsOptional()
