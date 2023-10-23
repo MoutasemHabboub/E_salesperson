@@ -20,7 +20,6 @@ export class IsExistConstraint implements ValidatorConstraintInterface {
   constructor(private readonly prisma: PrismaService) {}
 
   async validate(value: any, args: ValidationArguments): Promise<boolean> {
-    console.log(args.constraints);
     const [model, property = 'id'] = args.constraints;
     if (property === 'id') {
       try {
@@ -38,7 +37,6 @@ export class IsExistConstraint implements ValidatorConstraintInterface {
         [property]: value,
       },
     });
-    console.log(record);
     if (record === null) {
       throw new NotFoundException(`${model} ${property} entered is not valid`);
     }

@@ -11,15 +11,22 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOkResponse,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login.dto';
 import { SignupUserDto } from './dto/signup.dto';
 import { CurrentUser } from '@app/common';
 
-@Controller('auth')
+@ApiBearerAuth()
+@ApiTags('Auth')
+@Controller({
+  path: 'auth',
+  version: '1',
+})
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -39,7 +46,6 @@ export class AuthController {
     status: HttpStatus.UNAUTHORIZED,
   })
   async login(@CurrentUser() user, @Body() data: LoginUserDto) {
-    console.log(data);
     return await this.authService.login(user);
   }
 

@@ -36,7 +36,7 @@ export class UniqueConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments) {
-    return `${args.property} entered is not valid`;
+    return `${args.property} entered is not valid it is already exist`;
   }
 }
 
