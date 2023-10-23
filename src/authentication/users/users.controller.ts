@@ -1,4 +1,4 @@
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -15,6 +15,7 @@ import { CurrentUser } from '@app/common';
 import { ROLE } from '../enum/role.enum';
 import { RoleGuard } from '../guards/role.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { OptionsDto } from './dto/OptionsDto';
 @ApiBearerAuth()
 @ApiTags('User')
 @Controller({
@@ -30,11 +31,26 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
-  async getUser(@CurrentUser() user) {
-    return user;
+  @ApiQuery({
+    name: 'take',
+    required: false,
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'skip',
+    required: false,
+    type: Number,
+  })
+  @UseGuards(RoleGuard([ROLE.ADMIN]))
+  async getUsers(@Query() options: OptionsDto) {
+    return await this.usersService.getAllUsers(options);
   }
 
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  async getCurrentUser(@CurrentUser() user) {
+    return user;
+  }
   @Put()
   @UseGuards(JwtAuthGuard)
   async updateUser(@CurrentUser() user, @Body() data: UpdateUserDto) {

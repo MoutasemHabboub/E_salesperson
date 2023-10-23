@@ -93,11 +93,6 @@ export class RegionController {
     required: false,
     type: Number,
   })
-  @ApiQuery({
-    name: 'key',
-    required: false,
-    type: String,
-  })
   //  @UseGuards(RoleGuard([ROLE.MANAGER,ROLE.ADMIN]))
   async regionLookup(@Query() options: OptionsDto): Promise<any[]> {
     return this.regionService.regionLookup(options);
