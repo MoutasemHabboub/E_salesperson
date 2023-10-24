@@ -1,7 +1,8 @@
-import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -52,8 +53,13 @@ export class UsersController {
   async getCurrentUser(@CurrentUser() user) {
     return user;
   }
+
   @Put()
   @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    type: UpdateUserDto,
+    required: true,
+  })
   async updateUser(@CurrentUser() user, @Body() data: UpdateUserDto) {
     data.id = user.id;
     return await this.usersService.updateUser(data);
@@ -61,16 +67,21 @@ export class UsersController {
 
   @Put('user')
   @UseGuards(RoleGuard([ROLE.ADMIN]))
+  @ApiBody({
+    type: UpdateUserDto,
+    required: true,
+  })
   async updateUserById(@Body() data: UpdateUserDto) {
     return await this.usersService.updateUser(data);
   }
-  @Put()
+
+  @Delete()
   @UseGuards(JwtAuthGuard)
   async deleteUser(@CurrentUser() user) {
     return await this.usersService.deleteUser(user.id);
   }
 
-  @Put(':id')
+  @Delete(':id')
   @UseGuards(RoleGuard([ROLE.ADMIN]))
   async deleteUserById(@Param('id') id: number) {
     return await this.usersService.deleteUser(id);
