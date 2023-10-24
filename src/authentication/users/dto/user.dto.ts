@@ -69,5 +69,6 @@ export class UserDto {
       this.updatedAt = new Date(row.updatedAt);
     }
     this.role = row.role;
+    this.regionId = row.regionId;
   }
 }
