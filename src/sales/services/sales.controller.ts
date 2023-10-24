@@ -15,6 +15,7 @@ import { RoleGuard } from '../../authentication/guards/role.guard';
 import { ROLE } from '../../authentication/enum/role.enum';
 import { GetCommissionDto } from '../dto/getCommission.dto';
 import { CurrentUser } from '@app/common';
+import { GetUSersCommissionDto } from '../dto/get-users-commission.dto';
 
 @ApiBearerAuth()
 @ApiTags('Sales')
@@ -49,6 +50,20 @@ export class SalesController {
   @UseGuards(AuthGuard(['jwt']))
   async getCommission(@Body() data: GetCommissionDto, @CurrentUser() user) {
     return await this.salesService.calculateCommission(data, user);
+  }
+
+  @Post('/get-users-commission')
+  @HttpCode(HttpStatus.OK)
+  @ApiBody({
+    type: CreateSalesDto,
+    required: true,
+  })
+  @UseGuards(AuthGuard(['jwt']))
+  async getUsersCommission(
+    @Body() data: GetUSersCommissionDto,
+    @CurrentUser() user,
+  ) {
+    return await this.salesService.getUsersCommission(data);
   }
 
   @Post('/get-salesperson-commission/:id')

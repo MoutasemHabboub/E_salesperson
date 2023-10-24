@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../../database';
 import { CreateSalesDto } from '../dto/createSale.dto';
 import { GetCommissionDto } from '../dto/getCommission.dto';
+import { GetUSersCommissionDto } from '../dto/get-users-commission.dto';
 
 @Injectable()
 export class SalesService {
@@ -130,5 +131,60 @@ export class SalesService {
     }
 
     return { totalCommission, commissions, user };
+  }
+
+  async getUsersCommission(data: GetUSersCommissionDto) {
+    const users = await this.prisma.user.findMany();
+    const result = [];
+    for (let index = 0; index < users.length; index++) {
+      const user = users[index];
+
+      const regions = await this.prisma.region.findMany({
+        where: {
+          id: data.regionId,
+        },
+        include: {
+          sales: {
+            where: {
+              salespersonId: user.id,
+              month: data.month,
+              year: data.year,
+            },
+          },
+        },
+      });
+      let totalCommission = 0;
+      const commissions = [];
+      for (const region of regions) {
+        let regionCommission = 0;
+        let amount = 0;
+        for (const sale of region.sales) {
+          if (sale.regionId === user.regionId) {
+            if (sale.amount <= 1000000) {
+              regionCommission += sale.amount * 0.05;
+            } else {
+              regionCommission +=
+                1000000 * 0.05 + (sale.amount - 1000000) * 0.07;
+            }
+          } else {
+            if (sale.amount <= 1000000) {
+              regionCommission += sale.amount * 0.03;
+            } else {
+              regionCommission +=
+                1000000 * 0.03 + (sale.amount - 1000000) * 0.04;
+            }
+          }
+          totalCommission += regionCommission;
+          amount += sale.amount;
+        }
+        commissions.push({
+          region: region.name,
+          commission: regionCommission,
+          amount: amount,
+        });
+      }
+
+      result.push({ totalCommission, commissions, user });
+    }
   }
 }
