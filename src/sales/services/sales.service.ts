@@ -186,5 +186,6 @@ export class SalesService {
 
       result.push({ totalCommission, commissions, user });
     }
+    return result;
   }
 }
