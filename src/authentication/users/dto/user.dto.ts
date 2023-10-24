@@ -16,7 +16,7 @@ export class UserDto {
   @MaxLength(255)
   @MinLength(1)
   @ApiProperty()
-  userName: string;
+  name: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -55,9 +55,10 @@ export class UserDto {
   @IsDateString()
   updatedAt?: Date;
 
+  role;
   constructor(row: any) {
     this.id = row.id;
-    this.userName = row.userName;
+    this.name = row.name;
     if (row.region) {
       this.regionName = row.region.name;
     }
@@ -67,5 +68,6 @@ export class UserDto {
     if (row.updatedAt) {
       this.updatedAt = new Date(row.updatedAt);
     }
+    this.role = row.role;
   }
 }
