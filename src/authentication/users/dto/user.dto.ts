@@ -35,6 +35,13 @@ export class UserDto {
   @ApiPropertyOptional()
   photo: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  @MinLength(1)
+  @ApiProperty()
+  regionName: string;
+
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
@@ -48,11 +55,12 @@ export class UserDto {
   @IsDateString()
   updatedAt?: Date;
 
-  region;
   constructor(row: any) {
     this.id = row.id;
     this.userName = row.userName;
-    this.region = row.region;
+    if (row.region) {
+      this.regionName = row.region.name;
+    }
     this.photo = row.photo;
     this.number = row.number;
     this.createdAt = new Date(row.createdAt);
