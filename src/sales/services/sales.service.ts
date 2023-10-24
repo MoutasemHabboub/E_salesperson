@@ -22,6 +22,16 @@ export class SalesService {
     return sale.id;
   }
 
+  async insertUserSale(data: CreateSalesDto, id) {
+    const sale = await this.prisma.sales.create({
+      data: {
+        salespersonId: id,
+        ...data,
+      },
+    });
+    return sale.id;
+  }
+
   async calculateCommission(data: GetCommissionDto, user?) {
     if (!user) {
       if (!data.salespersonId) {
