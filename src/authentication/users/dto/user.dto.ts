@@ -62,8 +62,8 @@ export class UserDto {
     if (row.region) {
       this.regionName = row.region.name;
     }
-    this.photo = row.photo;
     this.number = row.number;
+    this.photo = row.photo;
     this.createdAt = new Date(row.createdAt);
     if (row.updatedAt) {
       this.updatedAt = new Date(row.updatedAt);
