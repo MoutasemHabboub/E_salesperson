@@ -44,7 +44,7 @@ export class SalesController {
   @Post('/get-commission')
   @HttpCode(HttpStatus.OK)
   @ApiBody({
-    type: CreateSalesDto,
+    type: GetUSersCommissionDto,
     required: true,
   })
   @UseGuards(AuthGuard(['jwt']))
@@ -55,7 +55,7 @@ export class SalesController {
   @Post('/get-users-commission')
   @HttpCode(HttpStatus.OK)
   @ApiBody({
-    type: CreateSalesDto,
+    type: GetUSersCommissionDto,
     required: true,
   })
   @UseGuards(AuthGuard(['jwt']))
