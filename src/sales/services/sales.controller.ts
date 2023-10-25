@@ -41,17 +41,7 @@ export class SalesController {
     const generatedId = await this.salesService.insertSale(data, user);
     return { id: generatedId };
   }
-  @Post('/:id')
-  @HttpCode(HttpStatus.OK)
-  @ApiBody({
-    type: CreateSalesDto,
-    required: true,
-  })
-  @UseGuards(RoleGuard([ROLE.ADMIN]))
-  async insertUserSale(@Param('id') id: number, @Body() data: CreateSalesDto) {
-    const generatedId = await this.salesService.insertUserSale(data, id);
-    return { id: generatedId };
-  }
+ 
 
   @Post('/get-commission')
   @HttpCode(HttpStatus.OK)
@@ -91,5 +81,17 @@ export class SalesController {
   ) {
     data.salespersonId = id;
     return await this.salesService.calculateCommission(data);
+  }
+
+  @Post('/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiBody({
+    type: CreateSalesDto,
+    required: true,
+  })
+  @UseGuards(RoleGuard([ROLE.ADMIN]))
+  async insertUserSale(@Param('id') id: number, @Body() data: CreateSalesDto) {
+    const generatedId = await this.salesService.insertUserSale(data, id);
+    return { id: generatedId };
   }
 }
